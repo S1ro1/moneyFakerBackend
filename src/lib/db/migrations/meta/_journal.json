@@ -8,6 +8,13 @@
       "when": 1699660804392,
       "tag": "0000_goofy_valkyrie",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1699662775076,
+      "tag": "0001_gifted_ken_ellis",
+      "breakpoints": true
     }
   ]
 }
