@@ -14,7 +14,7 @@ export const userRelations = relations(users, ({ many }) => ({
 export const transactions = sqliteTable('transactions', {
   id: integer('id').primaryKey(),
   amount: integer('amount').notNull(),
-  type: text('type').notNull(),
+  typeId: integer('type_id').notNull().references(() => transactionCategory.id),
 });
 
 export const transactionRelations = relations(transactions, ({ many }) => ({
@@ -40,4 +40,8 @@ export const usersToTransactionsRelations = relations(usersToTransactions, ({ on
 	}),
 }));
 
+export const transactionCategory = sqliteTable('transaction_category', {
+  id: integer('id').primaryKey(),
+  name: text('name').notNull(),
+});
 

@@ -1,9 +1,76 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "ea705921-1f32-44a2-93a0-e3088130a267",
+  "id": "55a913ed-d3fe-42a2-958c-b4f3f63f7e3f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
+    "transaction_category": {
+      "name": "transaction_category",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "transactions": {
+      "name": "transactions",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "amount": {
+          "name": "amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "type_id": {
+          "name": "type_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "transactions_type_id_transaction_category_id_fk": {
+          "name": "transactions_type_id_transaction_category_id_fk",
+          "tableFrom": "transactions",
+          "tableTo": "transaction_category",
+          "columnsFrom": [
+            "type_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "users": {
       "name": "users",
       "columns": {
@@ -33,6 +100,64 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "users_to_transactions": {
+      "name": "users_to_transactions",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "transaction_id": {
+          "name": "transaction_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "users_to_transactions_user_id_users_id_fk": {
+          "name": "users_to_transactions_user_id_users_id_fk",
+          "tableFrom": "users_to_transactions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "users_to_transactions_transaction_id_transactions_id_fk": {
+          "name": "users_to_transactions_transaction_id_transactions_id_fk",
+          "tableFrom": "users_to_transactions",
+          "tableTo": "transactions",
+          "columnsFrom": [
+            "transaction_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "users_to_transactions_user_id_transaction_id_pk": {
+          "columns": [
+            "transaction_id",
+            "user_id"
+          ],
+          "name": "users_to_transactions_user_id_transaction_id_pk"
+        }
+      },
       "uniqueConstraints": {}
     }
   },
